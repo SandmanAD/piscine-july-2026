@@ -1,0 +1,39 @@
+#include <unistd.h>
+
+void ft_putstr_non_printable(char *str);
+
+int main(void)
+{
+	char str[] = "This is\ntest the arrrrt";
+	ft_putstr_non_printable(str);
+}	
+
+void putchar(char c)
+{
+	write(1, &c, 1);
+}
+
+void xdigit(unsigned char c)
+{
+	char *hex = "0123456789abcdef";
+
+	putchar(hex[c / 16]);
+	putchar(hex[c % 16]);
+}
+
+void ft_putstr_non_printable(char *str)
+{
+	while (*str != '\0')
+	{
+		if (*str < 32 || *str == 127)
+		{
+			write(1, "\\", 1);
+			xdigit((unsigned char)*str);
+		}
+		else
+		{
+			putchar(*str);
+		}
+		str++;
+	}
+}
